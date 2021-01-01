@@ -1,0 +1,12 @@
+{
+	"web": {
+		"hostname": "0.0.0.0",
+		"port": 2014
+	},
+	"database": {
+		"hostname": "localhost",
+		"username": "durka",
+		"password": "",
+		"database": "durka"
+	}
+}

@@ -1,0 +1,157 @@
+@import './colors';
+@import './mixins';
+
+div.chat-container {
+	display: flex;
+
+	flex: 1 1 auto;
+	flex-direction: column;
+
+	min-height: 0;
+
+	background-color: $colorChat;
+
+	div.messages-container {
+		display: flex;
+
+		flex: 0 1 auto;
+		flex-direction: column;
+
+		min-height: 0;
+
+		padding: 1em 0.5em;
+
+		overflow-y: scroll;
+
+		@include scrollbar();
+
+		div.message {
+			display: flex;
+
+			padding: 0.5em;
+
+			border-radius: 4px;
+
+			background-color: $colorMessage;
+
+			transition: 50ms ease-in-out;
+			transition-property: background-color;
+
+			&:hover {
+				background-color: $colorMessageHover;
+
+				div.time {
+					visibility: visible;
+				}
+			}
+
+			&.message--group-start {
+				margin: 0.1em 0;
+
+				div.message-body {
+					div.content {
+						margin-top: 0.3em;
+					}
+				}
+			}
+
+			&:first-child {
+				margin-top: auto;
+			}
+
+			div.author-avatar-wrapper {
+				margin-right: 0.5em;
+
+				img.author-avatar {
+					width: 2.5em;
+					height: 2.5em;
+
+					border-radius: 50%;
+
+					object-fit: cover;
+				}
+			}
+	
+			div.time {
+				visibility: hidden;
+
+				width: 3rem;
+
+				margin-top: 0.1rem;
+
+				font-family: 'Roboto', sans-serif;
+				font-weight: 500;
+				font-size: 0.8em;
+
+				color: $secondary;
+			}
+
+			div.message-body {
+				display: flex;
+
+				flex-direction: column;
+
+				div.header {
+					span.author-username {
+						font-family: 'Roboto', sans-serif;
+						font-weight: 500;
+						font-size: 1em;
+
+						color: $normal;
+					}
+				}
+	
+				div.content {
+					font-family: 'Roboto', sans-serif;
+					font-weight: 400;
+					font-size: 1em;
+
+					color: $normal;
+				}
+			}
+		}
+	}
+}
+
+div.textarea-container {
+	display: flex;
+
+	align-items: center;
+	
+	height: 3.5em;
+
+	background-color: $colorChatTextarea;
+
+	span.textarea-attachment {
+		padding: 0.5em;
+		padding-left: 1.1em;
+
+		color: $muted;
+
+		cursor: pointer;
+
+		transition: 100ms ease-in-out;
+		transition-property: color;
+
+		&:hover,
+		&:active {
+			color: $normal;
+		}
+	}
+
+	input.textarea-input {
+		flex: 1 0 auto;
+
+		padding: 1em 1.2em;
+
+		border: none;
+		outline: none;
+
+		color: $normal;
+		background-color: transparent;
+
+		&::placeholder {
+			color: $muted;
+		}
+	}
+}

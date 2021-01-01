@@ -1,0 +1,620 @@
+@import './colors';
+@import './mixins';
+
+* {
+	position: relative;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+div#app-mount {
+	display: flex;
+
+	width: 100%;
+	height: 100%;
+
+	color: red;
+	background-color: aqua;
+}
+
+div.panel {
+	display: flex;
+
+	flex-direction: column;
+
+	height: 100%;
+
+	box-shadow: 0 2px 20px #00000066;
+
+	overflow: hidden; // Hide shadow overflows
+
+	&.panel-guilds {
+		width: 5em;
+
+		z-index: 2;
+	}
+
+	&.panel-channels {
+		width: 14em;
+
+		z-index: 1;
+	}
+
+	&.panel-main {
+		flex: 1 0 auto;
+	}
+
+	&.panel-main-inner {
+		flex-direction: row;
+	}
+
+	&.panel-chat {
+		flex: 1 0 auto;
+
+		z-index: 2;
+	}
+
+	&.panel-members {
+		width: 16em;
+
+		z-index: 3;
+	}
+}
+
+div.guilds-container {
+	display: flex;
+
+	flex: 1 0 auto;
+	flex-direction: column;
+
+	height: 100%;
+
+	overflow-y: scroll;
+
+	scrollbar-width: none;
+
+	background-color: $colorGuilds;
+
+	z-index: 1;
+
+	@include scrollbar();
+
+	div.guild {
+		display: flex;
+
+		justify-content: center;
+		align-items: center;
+
+		padding: 0.8em;
+
+		background-color: $colorGuildSidebar;
+
+		cursor: pointer;
+
+		transition: 50ms ease-in-out;
+		transition-property: background-color;
+
+		&:hover {
+			background-color: $colorGuildSidebarHover;
+
+			span.guild-add-icon {
+				color: $normal;
+			}
+		}
+
+		img.guild-icon {
+			width: 100%;
+			height: 100%;
+
+			border-radius: 50%;
+
+			object-fit: cover;
+		}
+
+		span.guild-pill {
+			position: absolute;
+
+			width: 5px;
+			height: 2em;
+			
+			left: 0;
+			
+			border-radius: 0 4px 4px 0;
+
+			background-color: #dadada;
+		}
+		
+		span.guild-add-icon {
+			border-radius: 50%;
+
+			font-size: 3.1em;
+
+			color: $muted;
+			background-color: $layer2;
+
+			transition: 50ms ease-in-out;
+			transition-property: color;
+		}
+	}
+}
+
+div.guild-topbar-container {
+	display: flex;
+
+	align-items: center;
+
+	height: 3em;
+
+	padding: 0.5em 0.8em;
+
+	background-color: $colorGuildTopbar;
+
+	box-shadow: 0px 2px 4px #00000066;
+
+	cursor: pointer;
+
+	transition: 100ms ease-in-out;
+	transition-property: background-color;
+
+	z-index: 0;
+
+	@include text-overflow-container();
+
+	&:hover {
+		background-color: $colorGuildTopbarHover;
+	}
+
+	span.guild-badge {
+		margin-right: 0.2em;
+
+		font-size: 1.1em;
+
+		color: $normal;
+	}
+
+	span.guild-name {
+		flex: 1 0 auto;
+
+		font-family: 'Roboto', sans-serif;
+		font-weight: 500;
+		font-size: 1.1em;
+
+		color: $normal;
+
+		user-select: none;
+
+		@include text-overflow();
+	}
+
+	span.guild-expand {
+		font-size: 1.6em;
+
+		color: $normal;
+	}
+}
+
+div.channel-topbar-container {
+	display: flex;
+
+	flex: 0 0 auto;
+
+	align-items: center;
+
+	height: 3em;
+
+	padding: 0.5em 0.8em;
+
+	background-color: $colorChannelTopbar;
+
+	box-shadow: 0px 2px 4px #00000066;
+
+	transition: 100ms ease-in-out;
+	transition-property: background-color;
+
+	z-index: 4;
+
+	@include text-overflow-container();
+
+	span.channel-icon {
+		margin-right: 0.2em;
+
+		font-family: 'Roboto', sans-serif; // TODO
+		font-weight: 400;
+		font-size: 1.3em;
+
+		color: $normal;
+	}
+
+	span.channel-name {
+		flex: 0 0 auto;
+
+		font-family: 'Roboto', sans-serif;
+		font-weight: 500;
+		font-size: 1.1em;
+
+		color: $normal;
+
+		user-select: none;
+
+		@include text-overflow();
+	}
+
+	span.channel-topic-divider {
+		width: 1px;
+		height: 75%;
+
+		margin: 0 1em;
+
+		border-radius: 4px;
+
+		background-color: $muted;
+	}
+
+	span.channel-topic {
+		flex: 1 0 auto;
+
+		font-family: 'Roboto', sans-serif;
+		font-weight: 300;
+		font-size: 1em;
+
+		color: $secondary;
+
+		user-select: none;
+	}
+}
+
+div.channels-container {
+	display: flex;
+
+	flex: 1 1 auto;
+	flex-direction: column;
+
+	padding: 1em 0.5em;
+
+	overflow-y: scroll;
+
+	background-color: $colorChannels;
+
+	@include scrollbar();
+}
+
+div.channel-sidebar-container {
+	display: flex;
+
+	flex: 0 0 auto;
+
+	align-items: center;
+	
+	height: 2em;
+
+	padding: 0.2em 0.5em;
+	margin: 0.1em 0;
+
+	border-radius: 4px;
+
+	background-color: $colorChannelSidebar;
+
+	user-select: none;
+
+	cursor: pointer;
+
+	transition: 50ms ease-in-out;
+	transition-property: background-color;
+
+	&:hover {
+		background-color: $colorChannelSidebarHover;
+
+		span.channel-sidebar-edit {
+			display: block;
+		}
+	}
+
+	&.channel-sidebar-container--selected {
+		background-color: $colorChannelSidebarActive;
+
+		span.channel-sidebar-icon {
+			color: $normal;
+		}
+
+		span.channel-sidebar-name {
+			color: $normal;
+		}
+	}
+	
+	span.channel-sidebar-icon {
+		margin-right: 0.2em;
+
+		font-family: 'Roboto', sans-serif; // TODO
+		font-weight: 400;
+		font-size: 1.2em;
+
+		color: $muted;
+
+		transition: 100ms ease-in-out;
+		transition-property: color;
+	}
+
+	span.channel-sidebar-name {
+		flex: 1 0 auto;
+
+		font-family: 'Roboto', sans-serif;
+		font-weight: 400;
+		font-size: 1em;
+
+		color: $muted;
+
+		@include text-overflow();
+
+		transition: 100ms ease-in-out;
+		transition-property: color;
+	}
+
+	span.channel-sidebar-edit {
+		display: none;
+
+		font-size: 1em;
+
+		color: $muted;
+
+		cursor: pointer;
+
+		transition: 100ms ease-in-out;
+		transition-property: color;
+
+		&:hover {
+			color: $normal;
+		}
+	}
+}
+
+div.scroll-space {
+	display: block;
+
+	flex: 0 0 auto;
+
+	height: 1em;
+	width: 1px;
+}
+
+div.user-sidebar-container {
+	display: flex;
+
+	align-items: center;
+	
+	height: 4em;
+
+	padding: 0.5em 0.8em;
+
+	background-color: $colorUserSidebar;
+
+	div.user-sidebar-avatar-wrapper {
+		height: 100%;
+
+		margin-right: 0.5em;
+
+		border-radius: 50%;
+
+		img.user-sidebar-avatar {
+			height: inherit;
+
+			border-radius: inherit;
+
+			object-fit: cover;
+		}
+	}
+
+	div.user-sidebar-tag {
+		display: flex;
+
+		flex: 1 0 auto;
+		flex-direction: column;
+
+		font-family: 'Roboto', sans-serif;
+		font-size: 0.9em;
+
+		@include text-overflow-container();
+
+		span.user-sidebar-tag-username {
+			font-weight: 500;
+
+			color: $normal;
+
+			@include text-overflow();
+		}
+
+		span.user-sidebar-tag-discriminator {
+			margin-top: 0.2em;
+
+			font-weight: 300;
+
+			color: $secondary;
+
+			@include text-overflow();
+		}
+	}
+
+	span.user-sidebar-settings {
+		font-size: 1.3em;
+
+		color: $muted;
+
+		cursor: pointer;
+
+		transition: 100ms ease-in-out;
+		transition-property: color;
+
+		&:hover {
+			color: $normal;
+		}
+	}
+}
+
+div.status-sidebar-container {
+	display: flex;
+
+	align-items: center;
+	
+	height: 3.5em;
+
+	padding: 0.5em 0.8em;
+
+	background-color: $colorStatusSidebar;
+
+	div.status-sidebar-icon-wrapper {
+		height: 100%;
+
+		margin-right: 0.5em;
+
+		border-radius: 4px;
+
+		img.status-sidebar-icon {
+			height: inherit;
+
+			border-radius: inherit;
+
+			object-fit: cover;
+		}
+	}
+
+	div.status-sidebar-info {
+		display: flex;
+
+		flex: 1 0 auto;
+		flex-direction: column;
+
+		font-family: 'Roboto', sans-serif;
+		font-size: 0.9em;
+
+		@include text-overflow-container();
+
+		span.status-sidebar-info-name {
+			font-weight: 500;
+
+			color: $normal;
+
+			@include text-overflow(true);
+		}
+
+		span.status-sidebar-info-state {
+			margin-top: 0.2em;
+
+			font-weight: 300;
+
+			color: $normal;
+
+			@include text-overflow(true);
+		}
+	}
+}
+
+div.members-sidebar-container {
+	display: flex;
+
+	flex: 1 1 auto;
+	flex-direction: column;
+
+	padding: 1em 0.5em;
+
+	overflow-y: scroll;
+
+	background-color: $colorMembers;
+
+	@include scrollbar();
+}
+
+div.member-sidebar-container {
+	display: flex;
+
+	align-items: center;
+	
+	height: 4em;
+
+	padding: 0.5em 0.8em;
+
+	border-radius: 4px;
+
+	background-color: $colorMemberSidebar;
+
+	user-select: none;
+
+	cursor: pointer;
+
+	transition: 100ms ease-in-out;
+	transition-property: background-color;
+
+	&:hover {
+		background-color: $colorMemberSidebarHover;
+	}
+
+	div.member-sidebar-avatar-wrapper {
+		height: 100%;
+
+		margin-right: 0.5em;
+
+		border-radius: 50%;
+
+		img.member-sidebar-avatar {
+			height: inherit;
+
+			border-radius: inherit;
+
+			object-fit: cover;
+		}
+	}
+
+	div.member-sidebar-info {
+		display: flex;
+
+		flex: 1 1 auto;
+		flex-direction: column;
+
+		font-family: 'Roboto', sans-serif;
+		font-size: 0.9em;
+
+		@include text-overflow-container();
+
+		span.member-sidebar-info-username {
+			font-weight: 500;
+
+			color: $normal;
+
+			@include text-overflow();
+		}
+
+		div.member-sidebar-info-activity {
+			display: flex;
+
+			flex: 0 1 auto;
+
+			align-items: center;
+
+			margin-top: 0.2em;
+
+			@include text-overflow-container();
+			
+			span.member-sidebar-info-activity-name {
+				margin-top: 0.2em;
+	
+				font-weight: 400;
+
+				color: $secondary;
+	
+				@include text-overflow();
+			}
+
+			img.member-sidebar-info-activity-icon {
+				width: 1.2em;
+				height: 1.2em;
+	
+				margin-right: 0.2em;
+	
+				border-radius: 4px;
+	
+				object-fit: cover;
+			}
+		}
+	}
+}

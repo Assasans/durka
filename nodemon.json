@@ -1,0 +1,15 @@
+{
+	"ignore": [
+		"settings.json",
+		"accounts.json",
+		"config.json",
+		"blacklist.json",
+		"tested.json",
+		"activated.json",
+		"static/**/*"
+	],
+	"events": {
+    "restart": "sh -c 'fuser -n tcp -k 6461'",
+    "crash": "sh -c 'fuser -n tcp -k 6461'"
+  }
+}

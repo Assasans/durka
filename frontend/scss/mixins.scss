@@ -1,0 +1,32 @@
+@import './colors';
+
+@mixin text-overflow-container() {
+	min-width: 0;
+}
+
+@mixin text-overflow($extend: false) {
+	white-space: nowrap;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	@if($extend or true) { // DEBUG
+		height: 1.06em; // XXX: `overflow: hidden` is clipping text by vertical axis
+	}
+}
+
+@mixin scrollbar() {
+	scrollbar-color: $scrollbarThumb $scrollbarTrack;
+
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background-color: $scrollbarTrack;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: $scrollbarThumb;
+	}
+}
